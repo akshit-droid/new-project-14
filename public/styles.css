@@ -30,7 +30,11 @@ body {
 }
 
 header {
-  background: linear-gradient(180deg, #ffffff 0%, var(--bg) 70%);
+  background:
+    linear-gradient(100deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%),
+    url("/bg.png");
+  background-size: cover;
+  background-position: center;
   position: relative;
   overflow: hidden;
   padding-bottom: 80px;
@@ -315,9 +319,7 @@ button.primary:hover {
 
 .hero {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
   position: relative;
 }
 
@@ -348,6 +350,9 @@ button.primary:hover {
 .hero-content {
   position: relative;
   z-index: 1;
+  padding: clamp(24px, 4vw, 52px) 0;
+  text-align: left;
+  max-width: 800px;
 }
 
 .hero-title {
@@ -379,6 +384,10 @@ button.primary:hover {
   margin-bottom: 24px;
 }
 
+.mobile-break {
+  display: none;
+}
+
 .hero-actions {
   display: flex;
   align-items: center;
@@ -391,6 +400,18 @@ button.primary:hover {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+
+.hero-metrics .metric {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.hero-metrics .metric:hover {
+  transform: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .metric {
@@ -411,56 +432,6 @@ button.primary:hover {
   transform: translateY(-4px);
   background: linear-gradient(135deg, rgba(32, 99, 206, 0.08), rgba(37, 206, 174, 0.12));
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-}
-
-.hero-card {
-  position: relative;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  min-height: 360px;
-  background: linear-gradient(145deg, rgba(32, 99, 206, 0.08), rgba(37, 206, 174, 0.12));
-  border: 1px solid rgba(32, 99, 206, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hero-card img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  background: #fff;
-  transition: transform 0.4s ease;
-}
-
-.hero-card::after {
-  content: "";
-  position: absolute;
-  inset: 20px;
-  border-radius: 22px;
-  background: radial-gradient(circle at 30% 20%, rgba(37, 206, 174, 0.2), rgba(255, 255, 255, 0));
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-.hero-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
-}
-
-.hero-card:hover img {
-  transform: scale(1.02);
-}
-
-.hero-card .caption {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  padding: 16px 18px;
-  border-radius: 16px;
-  background: rgba(15, 23, 42, 0.65);
-  color: #fff;
-  backdrop-filter: blur(6px);
 }
 
 @keyframes glowPulse {
@@ -1189,7 +1160,6 @@ details[open] .faq-icon {
 
   .btn,
   .feature-card,
-  .hero-card,
   .metric {
     transition: none;
   }
@@ -1264,6 +1234,33 @@ details[open] .faq-icon {
 
   .logo img {
     height: 44px;
+  }
+
+  header {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 55%, rgba(255, 255, 255, 0) 100%),
+      url("/bg.png");
+    background-size: cover;
+    background-position: right bottom;
+    padding-bottom: 300px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: 24px 0 0;
+  }
+
+  .mobile-break {
+    display: block;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    margin-bottom: 20px;
   }
 
   .hero-metrics {

@@ -3,9 +3,10 @@ window.Components = window.Components || {};
 window.Components.Hero = () => (
   <div className="hero">
     <div className="hero-content" data-animate>
-      <div className="badge">Built for distribution-led businesses</div>
       <h1 className="hero-title">
-        Empower Your Sales. Optimize Your Chain. Elevate Your Business with{" "}
+        Empower Your Sales.<br />
+        Optimize Your Chain.<br />
+        Elevate Your <br className="mobile-break" />Business with<br />
         <span className="hero-highlight">Ezupp ERP</span>.
       </h1>
       <p className="hero-lede">
@@ -29,13 +30,6 @@ window.Components.Hero = () => (
           Platform uptime assurance
         </div>
       </div>
-    </div>
-
-    <div className="hero-card" data-animate="delay-1">
-      <img
-        src="/main.png"
-        alt="Sales professional using the Ezupp mobile app with a distributor"
-      />
     </div>
   </div>
 );

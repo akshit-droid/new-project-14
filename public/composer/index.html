@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Composer | Ezupp ERP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/composer/styles.css" />
+  </head>
+  <body>
+    <main class="composer-shell">
+      <header class="composer-head">
+        <p class="eyebrow">Internal Tool</p>
+        <h1>Content Composer</h1>
+        <p>
+          Add title, slug, SEO description, and rich HTML body. Submit once and a page file is created in
+          <code>content/blog</code> or <code>content/knowledge</code>.
+        </p>
+      </header>
+
+      <form id="composer-form" class="composer-form">
+        <div class="row two">
+          <label>
+            Collection
+            <select name="collection" required>
+              <option value="blog">Blog</option>
+              <option value="knowledge">Knowledge</option>
+            </select>
+          </label>
+          <label>
+            Slug / URL
+            <input name="slug" type="text" placeholder="fmcg-secondary-sales-visibility" required />
+          </label>
+        </div>
+
+        <label>
+          Title
+          <input id="title-input" name="title" type="text" placeholder="How FMCG Teams Improve Secondary Sales Visibility" required />
+        </label>
+
+        <label>
+          SEO Description
+          <textarea name="description" rows="3" placeholder="Concise search summary for this page." required></textarea>
+        </label>
+
+        <label>
+          Excerpt (listing card summary)
+          <textarea name="excerpt" rows="2" placeholder="Optional card summary. If blank, description is used."></textarea>
+        </label>
+
+        <div class="row three">
+          <label>
+            Author
+            <input name="author" type="text" value="Ezupp Editorial Team" />
+          </label>
+          <label>
+            Published Date
+            <input name="publishedAt" type="date" />
+          </label>
+          <label>
+            Updated Date
+            <input name="updatedAt" type="date" />
+          </label>
+        </div>
+
+        <label>
+          Tags (comma separated)
+          <input name="tags" type="text" placeholder="FMCG, Secondary Sales, Distribution, Analytics" />
+        </label>
+
+        <label>
+          HTML Body
+          <textarea
+            id="html-input"
+            name="html"
+            rows="16"
+            placeholder="<h2>Section heading</h2>&#10;<p>Your content...</p>&#10;<img src='https://...'>"
+            required
+          ></textarea>
+          <span class="field-hint">Use image URLs in HTML, e.g. &lt;img src="https://..."&gt; or &lt;img src="/header1.png"&gt;.</span>
+        </label>
+
+        <div class="actions">
+          <button type="submit">Create Page</button>
+          <a href="/" class="link-home">Back to Site</a>
+        </div>
+      </form>
+
+      <section id="status-box" class="status-box" aria-live="polite"></section>
+    </main>
+
+    <script>
+      const form = document.getElementById("composer-form");
+      const statusBox = document.getElementById("status-box");
+      const titleInput = document.getElementById("title-input");
+
+      const toSlug = (value) =>
+        String(value || "")
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9\\s-]/g, "")
+          .replace(/\\s+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "");
+
+      const slugInput = form.elements.slug;
+      let slugTouched = false;
+
+      slugInput.addEventListener("input", () => {
+        slugTouched = slugInput.value.trim().length > 0;
+      });
+
+      titleInput.addEventListener("input", () => {
+        if (!slugTouched) {
+          slugInput.value = toSlug(titleInput.value);
+        }
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        statusBox.className = "status-box loading";
+        statusBox.textContent = "Creating page...";
+
+        const payload = {
+          collection: form.elements.collection.value,
+          slug: form.elements.slug.value,
+          title: form.elements.title.value,
+          description: form.elements.description.value,
+          excerpt: form.elements.excerpt.value,
+          author: form.elements.author.value,
+          publishedAt: form.elements.publishedAt.value,
+          updatedAt: form.elements.updatedAt.value,
+          tags: form.elements.tags.value,
+          html: form.elements.html.value
+        };
+
+        try {
+          const response = await fetch("/api/content", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const raw = await response.text();
+          let result = {};
+          try {
+            result = raw ? JSON.parse(raw) : {};
+          } catch (_err) {
+            throw new Error(`API did not return JSON (status ${response.status}). Check Vercel routing/env setup.`);
+          }
+
+          if (!response.ok) {
+            throw new Error(result.error || "Failed to create page");
+          }
+
+          statusBox.className = "status-box success";
+          const backendLine = result.backend ? `<strong>Backend:</strong> ${result.backend}<br>` : "";
+          const noteLine = result.note ? `${result.note}<br>` : "";
+          statusBox.innerHTML =
+            `<strong>Created:</strong> <code>${result.filePath}</code><br>` +
+            backendLine +
+            `<strong>Page:</strong> <a href="${result.pagePath}" target="_blank" rel="noreferrer">${result.pagePath}</a><br>` +
+            noteLine +
+            `If this was a local filesystem write, redeploy to publish on Vercel.`;
+
+          form.reset();
+          slugTouched = false;
+        } catch (error) {
+          statusBox.className = "status-box error";
+          statusBox.textContent = error.message || "Failed to create page";
+        }
+      });
+    </script>
+  </body>
+</html>

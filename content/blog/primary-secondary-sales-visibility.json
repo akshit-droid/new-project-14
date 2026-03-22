@@ -1,0 +1,40 @@
+{
+  "slug": "primary-secondary-sales-visibility",
+  "title": "How to Align Primary and Secondary Sales Visibility",
+  "description": "Unify distributor billing and field execution signals to reduce blind spots and improve replenishment decisions.",
+  "excerpt": "Many teams can report primary and secondary sales, but few can connect them in time to act. Here is a simple alignment model.",
+  "publishedAt": "2025-12-12",
+  "updatedAt": "2026-02-27",
+  "author": "Ezupp Product Team",
+  "tags": [
+    "Supply Chain",
+    "Analytics",
+    "Replenishment"
+  ],
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "Primary sales explain upstream movement, secondary sales explain market pull. Reliable planning requires both in one operating view."
+    },
+    {
+      "type": "heading",
+      "text": "Start with shared dimensions"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Single SKU code and outlet taxonomy across systems.",
+        "Unified distributor and territory IDs.",
+        "Daily sync checkpoints for order, stock, and invoicing events."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Operationalize with exception dashboards"
+    },
+    {
+      "type": "paragraph",
+      "text": "Surface gaps such as high primary dispatch with weak secondary offtake, then trigger rep-level action plans automatically."
+    }
+  ]
+}

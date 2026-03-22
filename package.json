@@ -1,0 +1,15 @@
+{
+  "name": "ezupp-erp-landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node server.js",
+    "start": "node server.js",
+    "new:content": "node scripts/new-content.js"
+  },
+  "dependencies": {
+    "vercel": "^50.32.5"
+  }
+}

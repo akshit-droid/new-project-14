@@ -1,0 +1,94 @@
+{
+  "slug": "fmcg-secondary-sales-visibility",
+  "title": "How FMCG Teams Improve Secondary Sales Visibility",
+  "description": "A practical framework for FMCG brands to connect primary and secondary sales data for faster replenishment and better distributor performance.",
+  "excerpt": "A practical framework for FMCG brands to connect primary and secondary sales data for faster replenishment and better distributor performance.",
+  "publishedAt": "2026-03-22",
+  "updatedAt": "2026-03-22",
+  "author": "Ezupp Editorial Team",
+  "tags": [
+    "FMCG",
+    "Secondary Sales",
+    "Distribution",
+    "Analytics"
+  ],
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "Most FMCG teams can report primary dispatches and secondary offtake, but they still react late because the two signals are tracked in separate systems and reviewed too slowly."
+    },
+    {
+      "type": "heading",
+      "text": "Why secondary visibility breaks in growing distribution networks"
+    },
+    {
+      "type": "paragraph",
+      "text": "As distributor count grows, data quality and reporting rhythm usually fall behind. Teams rely on end-of-month snapshots, which hide early stock-out or low-rotation signals."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Different SKU naming standards between billing and field systems.",
+        "Delayed distributor uploads that create stale dashboards.",
+        "No exception layer that flags outlet-level demand drops quickly."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A simple 4-step model to improve signal quality"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Standardize core dimensions: SKU code, outlet type, territory, and distributor ID.",
+        "Set daily sync cutoffs with a fixed SLA for both primary and secondary events.",
+        "Add exception views for mismatch patterns, not just topline totals.",
+        "Assign ownership per exception type so issues are actioned within one business day."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Which exceptions should every FMCG dashboard include"
+    },
+    {
+      "type": "list",
+      "items": [
+        "High primary dispatch but weak secondary sell-out for two consecutive cycles.",
+        "Fast secondary depletion with low distributor stock cover.",
+        "Top outlets with reduced order frequency compared to prior four-week trend."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Execution cadence that keeps decisions fast"
+    },
+    {
+      "type": "paragraph",
+      "text": "Run a short daily control room for exceptions and a deeper weekly review for route, assortment, and distributor performance changes. This separates urgent action from structural planning."
+    },
+    {
+      "type": "quote",
+      "text": "Visibility is not a dashboard problem. It is a data discipline and operating rhythm problem."
+    },
+    {
+      "type": "paragraph",
+      "text": "Teams that close this loop consistently reduce stock-outs, improve fill rates, and increase confidence in replenishment decisions across regions."
+    },
+    {
+      "type": "heading",
+      "text": "Next step"
+    },
+    {
+      "type": "paragraph",
+      "text": "Start with one pilot region for two weeks, enforce data standards, and measure response time from exception detection to field action. Scale only after the pilot cadence is stable."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Track exception closure time by owner.",
+        "Monitor stock cover and repeat order rates weekly.",
+        "Review assortment compliance before expanding to new territories."
+      ]
+    }
+  ]
+}

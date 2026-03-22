@@ -1,0 +1,40 @@
+{
+  "slug": "distributor-onboarding-metrics",
+  "title": "Distributor Onboarding Metrics That Predict First-Quarter Success",
+  "description": "Track the early indicators that show whether a new distributor setup will scale in the first 90 days.",
+  "excerpt": "Onboarding speed is not enough. These metrics help teams detect risk early and support partners before quarterly targets slip.",
+  "publishedAt": "2026-01-30",
+  "updatedAt": "2026-03-03",
+  "author": "Ezupp Partner Ops",
+  "tags": [
+    "Distributor Management",
+    "KPIs",
+    "Partner Operations"
+  ],
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "Strong onboarding combines operational readiness and behavior signals. Measure both to avoid false confidence."
+    },
+    {
+      "type": "heading",
+      "text": "Use a readiness score before go-live"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Master data completion rate.",
+        "SKU-to-outlet mapping coverage.",
+        "Sales rep login and usage consistency in the first two weeks."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Track quality, not only volume"
+    },
+    {
+      "type": "paragraph",
+      "text": "Order volume can spike from initial stocking. Watch order repetition rate and line-item diversity to confirm true adoption."
+    }
+  ]
+}

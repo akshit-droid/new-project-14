@@ -1,0 +1,44 @@
+{
+  "slug": "field-route-planning-playbook",
+  "title": "Field Route Planning Playbook for Distributor-Led Teams",
+  "description": "A practical weekly workflow to design beats, protect high-value outlets, and keep route plans responsive.",
+  "excerpt": "Most route plans fail because they optimize distance but ignore outlet importance. This playbook fixes that with a repeatable weekly cadence.",
+  "publishedAt": "2026-02-18",
+  "updatedAt": "2026-03-08",
+  "author": "Ezupp Growth Team",
+  "tags": [
+    "Field Sales",
+    "Route Planning",
+    "Execution"
+  ],
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "Route plans should be treated as a revenue system, not only a logistics task. Start from contribution tiers, then allocate visits based on expected value."
+    },
+    {
+      "type": "heading",
+      "text": "Plan beats around outlet contribution, not map geometry"
+    },
+    {
+      "type": "paragraph",
+      "text": "Distance matters, but contribution matters more. If premium outlets are underserviced, shortest-path routing will still underperform."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Create A/B/C outlet tiers from 90-day sales and growth potential.",
+        "Set minimum visit frequencies per tier and enforce them first.",
+        "Use travel-time optimization only after service-frequency constraints are locked."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Run a weekly route review rhythm"
+    },
+    {
+      "type": "paragraph",
+      "text": "A weekly review with sales managers keeps route logic current as territories shift, new distributors onboard, and stock coverage changes."
+    }
+  ]
+}

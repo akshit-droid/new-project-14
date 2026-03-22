@@ -1,0 +1,45 @@
+{
+  "slug": "set-up-distributor-clusters",
+  "title": "How to Set Up Distributor Clusters in Ezupp",
+  "description": "Step-by-step instructions for building territory clusters that support clean assignment, performance tracking, and escalation flows.",
+  "excerpt": "Use this guide when launching a new zone or restructuring existing territories in the Ezupp console.",
+  "publishedAt": "2026-03-14",
+  "updatedAt": "2026-03-14",
+  "author": "Ezupp Implementation Team",
+  "tags": [
+    "Knowledge Base",
+    "Setup Guide",
+    "Distributor Management"
+  ],
+  "sections": [
+    {
+      "type": "paragraph",
+      "text": "Cluster design should follow outlet density, not administrative boundaries. This improves route quality and manager oversight."
+    },
+    {
+      "type": "heading",
+      "text": "Before you begin"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Prepare cleaned distributor and outlet master data.",
+        "Finalize cluster naming rules and ownership levels.",
+        "Confirm the escalation matrix for each cluster."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Configuration steps"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Open Admin > Territory Setup > Cluster Manager.",
+        "Create clusters by zone and assign default sales hierarchy.",
+        "Map distributors and validate overlap warnings.",
+        "Publish and run a pilot sync for one business day."
+      ]
+    }
+  ]
+}

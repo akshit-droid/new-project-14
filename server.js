@@ -8,6 +8,7 @@ const {
   renderSitemapXml,
   renderRobotsTxt
 } = require("./lib/content-pages");
+const { getCollections } = require("./content/collections");
 
 const rootDir = __dirname;
 const publicDir = path.join(rootDir, "public");
@@ -361,22 +362,117 @@ const server = http.createServer((req, res) => {
   const baseUrl = getBaseUrl(req);
 
   if (pathname === "/api/content") {
-    if (req.method !== "POST") {
-      sendJson(res, 405, { error: "Method not allowed" });
-      return;
-    }
-    if (!composerApiEnabled) {
-      sendJson(res, 403, {
-        error:
-          "Composer API is disabled in this environment. Use local dev or set ENABLE_CONTENT_COMPOSER_API=true."
-      });
-      return;
-    }
-
     if (composerBackend !== "filesystem" && composerBackend !== "github") {
       sendJson(res, 500, {
         error: "Invalid CONTENT_COMPOSER_BACKEND. Use 'filesystem' or 'github'."
       });
+      return;
+    }
+
+    if (req.method === "GET") {
+      const query = new URL(req.url, baseUrl).searchParams;
+      const qCollection = query.get("collection");
+      const qSlug = query.get("slug");
+
+      const collections = getCollections();
+
+      if (qCollection && qSlug) {
+        const entry = collections[qCollection]?.items.find((i) => i.slug === qSlug);
+        if (entry) {
+          sendJson(res, 200, entry);
+        } else {
+          sendJson(res, 404, { error: "Entry not found" });
+        }
+        return;
+      }
+
+      const list = [];
+      Object.keys(collections).forEach((key) => {
+        collections[key].items.forEach((item) => {
+          list.push({
+            collection: key,
+            slug: item.slug,
+            title: item.title,
+            publishedAt: item.publishedAt,
+            author: item.author
+          });
+        });
+      });
+      sendJson(res, 200, list);
+      return;
+    }
+
+    if (req.method === "DELETE") {
+      const query = new URL(req.url, baseUrl).searchParams;
+      const collection = query.get("collection");
+      const slug = query.get("slug");
+
+      if (!collection || !slug) {
+        sendJson(res, 400, { error: "Missing collection or slug" });
+        return;
+      }
+
+      if (composerBackend === "github") {
+        const repoParts = parseGithubRepo(githubRepo);
+        if (!repoParts || !githubToken) {
+          sendJson(res, 500, { error: "GitHub API configuration missing" });
+          return;
+        }
+
+        const contentPath = `content/${collection}/${slug}.json`;
+        const apiUrl = `https://api.github.com/repos/${repoParts.owner}/${repoParts.repo}/contents/${encodeGithubPath(
+          contentPath
+        )}`;
+
+        // Need the SHA to delete
+        fetch(apiUrl, {
+          headers: {
+            Accept: "application/vnd.github+json",
+            Authorization: `Bearer ${githubToken}`,
+            "User-Agent": "ezupp-composer"
+          }
+        })
+          .then(async (sr) => {
+            if (!sr.ok) throw new Error("File not found on GitHub or API error");
+            const fileData = await sr.json();
+            return fetch(apiUrl, {
+              method: "DELETE",
+              headers: {
+                Accept: "application/vnd.github+json",
+                Authorization: `Bearer ${githubToken}`,
+                "Content-Type": "application/json",
+                "User-Agent": "ezupp-composer"
+              },
+              body: JSON.stringify({
+                message: `content(${collection}): delete ${slug}`,
+                sha: fileData.sha,
+                branch: githubBranch
+              })
+            });
+          })
+          .then(async (dr) => {
+            if (!dr.ok) throw new Error("Failed to delete from GitHub");
+            sendJson(res, 200, { message: "Deleted from GitHub" });
+          })
+          .catch((err) => {
+            sendJson(res, 500, { error: err.message });
+          });
+        return;
+      }
+
+      // Filesystem backend
+      const targetPath = path.join(contentDir, collection, `${slug}.json`);
+      if (fs.existsSync(targetPath)) {
+        fs.unlinkSync(targetPath);
+        sendJson(res, 200, { message: "Deleted from filesystem" });
+      } else {
+        sendJson(res, 404, { error: "File not found locally" });
+      }
+      return;
+    }
+
+    if (req.method !== "POST") {
+      sendJson(res, 405, { error: "Method not allowed" });
       return;
     }
 

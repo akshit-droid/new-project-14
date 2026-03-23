@@ -1,0 +1,19 @@
+{
+  "slug": "test-post-123456",
+  "title": "Test Post 123456",
+  "description": "This is a test post for verification.",
+  "excerpt": "This is a test post for verification.",
+  "publishedAt": "+060323-02",
+  "updatedAt": "+060323-02",
+  "author": "Test Author",
+  "tags": [
+    "test",
+    "verification"
+  ],
+  "sections": [
+    {
+      "type": "html",
+      "html": "<p>This is a test blog post content with some rich text features.<strong> This part is bold.</strong></p>"
+    }
+  ]
+}

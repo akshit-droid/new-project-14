@@ -265,3 +265,107 @@ button[type="submit"]:hover {
 .hidden {
   display: none !important;
 }
+
+/* ── Content List ─────────────────────────────────── */
+.content-list-section {
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+}
+
+.content-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.content-list-header h2 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.5rem;
+}
+
+.refresh-btn {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--brand);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.refresh-btn:hover {
+  background: #e8f0ff;
+}
+
+.cms-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.cms-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.cms-table th,
+.cms-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cms-table th {
+  background: #f8fbff;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.cms-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cms-table tr:hover {
+  background: #fcfdfe;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.badge-blog { background: #e0f2fe; color: #0369a1; }
+.badge-knowledge { background: #fef3c7; color: #92400e; }
+
+.delete-btn {
+  background: none;
+  border: 1px solid #fee2e2;
+  color: var(--danger);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+/* TinyMCE Overrides */
+.tox-tinymce {
+  border-radius: 10px !important;
+  border: 1px solid var(--line) !important;
+}

@@ -431,6 +431,22 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // FALLBACK: Try root-level slugs for any collection
+  const rootSlugMatch = pathname.match(/^\/([a-z0-9-]+)$/);
+  if (rootSlugMatch) {
+    const slug = rootSlugMatch[1];
+    // Check blog then knowledge
+    let html = renderCollectionEntryPage("blog", slug, baseUrl);
+    if (!html) {
+      html = renderCollectionEntryPage("knowledge", slug, baseUrl);
+    }
+
+    if (html) {
+      sendContent(res, 200, "text/html; charset=utf-8", html);
+      return;
+    }
+  }
+
   const safePath = pathname === "/" ? "/index.html" : pathname;
   const normalizedPath = path
     .normalize(safePath)

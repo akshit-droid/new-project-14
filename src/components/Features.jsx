@@ -4,8 +4,11 @@ window.Components.Features = ({ features }) => {
   const { Icon } = window.Components;
 
   return (
-    <section id="features">
-      <div className="container">
+    <section id="features" className="bg-pattern-dots" style={{ position: "relative" }}>
+      <div className="shape-accent shape-circle pos-top-left"></div>
+      <div className="shape-accent shape-plus pos-center-right"></div>
+      <div className="shape-accent shape-dots pos-bottom-left"></div>
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <div className="section-title" data-animate>
           <p className="text-highlight">A complete suite</p>
           <h2>A Complete Suite. Unlimited Possibilities.</h2>

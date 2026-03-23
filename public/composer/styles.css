@@ -193,3 +193,75 @@ button[type="submit"]:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Login Overlay ────────────────────────────────── */
+#login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 30, 55, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.login-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin: 0 0 8px;
+  font-family: "Manrope", sans-serif;
+}
+
+.login-card p {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.login-form {
+  display: grid;
+  gap: 16px;
+  text-align: left;
+}
+
+.login-error {
+  background: #fff2f0;
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 12px;
+  display: none;
+}
+
+/* Logout button */
+.logout-btn {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}

@@ -13,10 +13,34 @@
     <link rel="stylesheet" href="/composer/styles.css" />
   </head>
   <body>
-    <main class="composer-shell">
+    <div id="login-overlay">
+      <div class="login-card">
+        <h2>Composer Login</h2>
+        <p>Enter your credentials to access the content editor.</p>
+        <form id="login-form" class="login-form">
+          <label>
+            Username
+            <input type="email" id="login-user" value="composer@gmail.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="login-pass" value="123123" required />
+          </label>
+          <button type="submit">Unlock Editor</button>
+        </form>
+        <div id="login-error" class="login-error">Invalid username or password.</div>
+      </div>
+    </div>
+
+    <main id="composer-shell" class="composer-shell hidden">
       <header class="composer-head">
-        <p class="eyebrow">Internal Tool</p>
-        <h1>Content Composer</h1>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <p class="eyebrow">Internal Tool</p>
+            <h1>Content Composer</h1>
+          </div>
+          <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
         <p>
           Add title, slug, SEO description, and rich HTML body. Submit once and a page file is created in
           <code>content/blog</code> or <code>content/knowledge</code>.
@@ -95,6 +119,44 @@
     </main>
 
     <script>
+      const loginOverlay = document.getElementById("login-overlay");
+      const loginForm = document.getElementById("login-form");
+      const loginError = document.getElementById("login-error");
+      const composerShell = document.getElementById("composer-shell");
+      const logoutBtn = document.getElementById("logout-btn");
+
+      const checkAuth = () => {
+        if (sessionStorage.getItem("composer_auth") === "1") {
+          loginOverlay.classList.add("hidden");
+          composerShell.classList.remove("hidden");
+        } else {
+          loginOverlay.classList.remove("hidden");
+          composerShell.classList.add("hidden");
+        }
+      };
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const user = document.getElementById("login-user").value;
+        const pass = document.getElementById("login-pass").value;
+
+        if (user === "composer@gmail.com" && pass === "123123") {
+          sessionStorage.setItem("composer_auth", "1");
+          loginError.style.display = "none";
+          checkAuth();
+        } else {
+          loginError.style.display = "block";
+        }
+      });
+
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("composer_auth");
+        checkAuth();
+      });
+
+      // Initial check
+      checkAuth();
+
       const form = document.getElementById("composer-form");
       const statusBox = document.getElementById("status-box");
       const titleInput = document.getElementById("title-input");

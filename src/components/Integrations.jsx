@@ -1,8 +1,9 @@
 window.Components = window.Components || {};
 
 window.Components.Integrations = ({ integrationNodes }) => (
-  <section id="integrations">
-    <div className="container">
+  <section id="integrations" className="section-strong bg-pattern-grid" style={{ position: "relative" }}>
+    <div className="floating-orb accent size-md pos-center-right" style={{ animationDelay: "2s" }}></div>
+    <div className="container" style={{ position: "relative", zIndex: 1 }}>
       <div className="section-title" data-animate>
         <p className="text-highlight">Seamless integrations</p>
         <h2>Connects effortlessly. Enhances everything.</h2>

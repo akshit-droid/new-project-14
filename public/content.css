@@ -123,10 +123,11 @@
   color: var(--primary-dark);
 }
 
+/* ── Article page ─────────────────────────────────── */
 .article-main {
   padding: 24px 0 90px;
   display: grid;
-  gap: 24px;
+  gap: 20px;
 }
 
 .article-back a {
@@ -140,6 +141,7 @@
   background: #fff;
   box-shadow: 0 16px 40px rgba(15, 29, 47, 0.06);
   padding: 24px;
+  min-width: 0;
 }
 
 .article-header h1 {
@@ -168,7 +170,6 @@
 }
 
 .article-body {
-  max-width: 760px;
   display: grid;
   gap: 14px;
   margin-top: 18px;
@@ -221,6 +222,154 @@
   color: var(--primary-dark);
 }
 
+/* ── 3-column article layout ──────────────────────── */
+.article-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  gap: 24px;
+  align-items: start;
+}
+
+.article-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 24px;
+}
+
+/* ── Sidebar cards ─────────────────────────────────── */
+.sidebar-card {
+  border: 1px solid rgba(15, 29, 47, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 29, 47, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* About block */
+.sidebar-about-logo {
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--heading);
+}
+
+.sidebar-about-text {
+  font-size: 0.86rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Stat cards */
+.sidebar-stat-card {
+  background: linear-gradient(135deg, #edf5ff 0%, #e4f0f8 100%);
+  border-color: rgba(15, 29, 47, 0.06);
+  text-align: center;
+  padding: 20px 14px;
+}
+
+.sidebar-stat {
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: var(--primary-dark);
+  line-height: 1;
+}
+
+.sidebar-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Tags in sidebar */
+.sidebar-tags {
+  gap: 6px;
+}
+
+/* CTA card (right sidebar) */
+.sidebar-cta-card {
+  background: linear-gradient(145deg, #0f1d2f 0%, #1b3254 100%);
+  border-color: transparent;
+}
+
+.sidebar-cta-card .sidebar-card-title {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sidebar-cta-text {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* CTA buttons */
+.sidebar-cta-btn {
+  display: inline-block;
+  background: var(--primary-dark);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-align: center;
+  transition: opacity 0.18s ease;
+  text-decoration: none;
+}
+
+.sidebar-cta-btn:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+.sidebar-cta-btn--full {
+  background: var(--accent);
+  color: var(--heading);
+  display: block;
+}
+
+/* Related links inside sidebar card */
+.sidebar-card .related-link {
+  background: #f7fbff;
+  border-color: rgba(15, 29, 47, 0.08);
+}
+
+.related-link {
+  border-radius: 10px;
+  border: 1px solid rgba(15, 29, 47, 0.1);
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  background: #fbfdff;
+  text-decoration: none;
+}
+
+.related-link span {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.related-link strong {
+  color: var(--heading);
+}
+
+/* Legacy related-shell (kept for safety) */
 .related-shell {
   border: 1px solid rgba(15, 29, 47, 0.08);
   border-radius: 16px;
@@ -236,24 +385,6 @@
   margin-bottom: 2px;
 }
 
-.related-link {
-  border-radius: 10px;
-  border: 1px solid rgba(15, 29, 47, 0.1);
-  padding: 12px;
-  display: grid;
-  gap: 6px;
-  background: #fbfdff;
-}
-
-.related-link span {
-  color: var(--text-muted);
-  font-size: 0.84rem;
-}
-
-.related-link strong {
-  color: var(--heading);
-}
-
 .not-found {
   padding-top: 90px;
 }
@@ -263,6 +394,28 @@
   display: flex;
   gap: 14px;
   font-weight: 700;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .article-sidebar--left {
+    display: none;
+  }
+
+  .article-sidebar--right {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .article-sidebar--right .sidebar-card {
+    flex: 1 1 240px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -284,8 +437,11 @@
   }
 
   .content-card,
-  .article-shell,
-  .related-shell {
+  .article-shell {
     padding: 16px;
+  }
+
+  .article-sidebar--right {
+    flex-direction: column;
   }
 }

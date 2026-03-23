@@ -1,8 +1,9 @@
 window.Components = window.Components || {};
 
 window.Components.DemoCTA = () => (
-  <section className="section-strong" id="demo">
-    <div className="container">
+  <section className="section-strong bg-pattern-dots" id="demo" style={{ position: "relative" }}>
+    <div className="floating-orb primary size-lg pos-top-left" style={{ animationDelay: "3s" }}></div>
+    <div className="container" style={{ position: "relative", zIndex: 1 }}>
       <div className="cta-grid">
         <div data-animate>
           <p className="text-highlight">Ready to transform your business?</p>

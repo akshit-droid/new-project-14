@@ -1,8 +1,9 @@
 window.Components = window.Components || {};
 
 window.Components.Solutions = ({ benefits }) => (
-  <section className="section-soft" id="solutions">
-    <div className="container">
+  <section className="section-soft bg-pattern-grid" id="solutions">
+    <div className="floating-orb primary size-lg pos-center-right" style={{ animationDelay: "1s" }}></div>
+    <div className="container" style={{ position: "relative", zIndex: 1 }}>
       <div className="solutions-grid">
         <div data-animate>
           <p className="text-highlight">Operational clarity, end-to-end.</p>

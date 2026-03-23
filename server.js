@@ -100,7 +100,7 @@ const getBaseUrl = (req) => {
     .split(",")[0]
     .trim();
   const protocol = forwardedProto || "http";
-  const host = forwardedHost || String(req.headers.host || `localhost:${PORT}`).trim();
+  const host = forwardedHost || String(req.headers.host || "localhost").trim();
   return `${protocol}://${host}`;
 };
 
@@ -369,14 +369,36 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+
     if (req.method === "GET") {
       const query = new URL(req.url, baseUrl).searchParams;
       const qCollection = query.get("collection");
       const qSlug = query.get("slug");
 
-      const collections = getCollections();
-
       if (qCollection && qSlug) {
+        if (composerBackend === "github") {
+          const repoParts = parseGithubRepo(githubRepo);
+          const contentPath = `content/${qCollection}/${qSlug}.json`;
+          const apiUrl = `https://api.github.com/repos/${repoParts.owner}/${repoParts.repo}/contents/${encodeGithubPath(contentPath)}?ref=${githubBranch}`;
+          
+          fetch(apiUrl, {
+            headers: {
+              Accept: "application/vnd.github+json",
+              Authorization: `Bearer ${githubToken}`,
+              "User-Agent": "ezupp-composer"
+            }
+          })
+            .then(async (gr) => {
+              if (!gr.ok) throw new Error("File not found on GitHub");
+              const fileData = await gr.json();
+              const content = Buffer.from(fileData.content, "base64").toString("utf-8");
+              sendJson(res, 200, JSON.parse(content));
+            })
+            .catch((err) => sendJson(res, 404, { error: err.message }));
+          return;
+        }
+
+        const collections = getCollections();
         const entry = collections[qCollection]?.items.find((i) => i.slug === qSlug);
         if (entry) {
           sendJson(res, 200, entry);
@@ -386,6 +408,60 @@ const server = http.createServer((req, res) => {
         return;
       }
 
+      // LIST FETCH
+      if (composerBackend === "github") {
+        const repoParts = parseGithubRepo(githubRepo);
+        const fetchDir = async (coll) => {
+          const apiUrl = `https://api.github.com/repos/${repoParts.owner}/${repoParts.repo}/contents/content/${coll}?ref=${githubBranch}`;
+          const r = await fetch(apiUrl, {
+            headers: {
+              Accept: "application/vnd.github+json",
+              Authorization: `Bearer ${githubToken}`,
+              "User-Agent": "ezupp-composer"
+            }
+          });
+          if (!r.ok) return [];
+          const files = await r.json();
+          return Promise.all(
+            files
+              .filter((f) => f.name.endsWith(".json"))
+              .map(async (f) => {
+                const slug = f.name.replace(".json", "");
+                // Fetch each file for metadata (might be slow but necessary for 'live' list)
+                try {
+                  const fr = await fetch(f.url, {
+                    headers: {
+                      Accept: "application/vnd.github+json",
+                      Authorization: `Bearer ${githubToken}`,
+                      "User-Agent": "ezupp-composer"
+                    }
+                  });
+                  const fd = await fr.json();
+                  const fc = JSON.parse(Buffer.from(fd.content, "base64").toString("utf-8"));
+                  return {
+                    collection: coll,
+                    slug,
+                    title: fc.title || slug,
+                    publishedAt: fc.publishedAt,
+                    author: fc.author
+                  };
+                } catch (e) {
+                  return { collection: coll, slug, title: slug };
+                }
+              })
+          );
+        };
+
+        Promise.all([fetchDir("blog"), fetchDir("knowledge")])
+          .then((results) => {
+            sendJson(res, 200, results.flat());
+          })
+          .catch((err) => sendJson(res, 500, { error: err.message }));
+        return;
+      }
+
+      // Default Filesystem List
+      const collections = getCollections();
       const list = [];
       Object.keys(collections).forEach((key) => {
         collections[key].items.forEach((item) => {
@@ -424,8 +500,8 @@ const server = http.createServer((req, res) => {
           contentPath
         )}`;
 
-        // Need the SHA to delete
-        fetch(apiUrl, {
+        // Need the SHA to delete, and must use ref for the branch
+        fetch(`${apiUrl}?ref=${githubBranch}`, {
           headers: {
             Accept: "application/vnd.github+json",
             Authorization: `Bearer ${githubToken}`,
@@ -433,7 +509,7 @@ const server = http.createServer((req, res) => {
           }
         })
           .then(async (sr) => {
-            if (!sr.ok) throw new Error("File not found on GitHub or API error");
+            if (!sr.ok) throw new Error(`File not found on GitHub (${sr.status})`);
             const fileData = await sr.json();
             return fetch(apiUrl, {
               method: "DELETE",
@@ -451,7 +527,7 @@ const server = http.createServer((req, res) => {
             });
           })
           .then(async (dr) => {
-            if (!dr.ok) throw new Error("Failed to delete from GitHub");
+            if (!dr.ok) throw new Error(`Failed to delete from GitHub (${dr.status})`);
             sendJson(res, 200, { message: "Deleted from GitHub" });
           })
           .catch((err) => {

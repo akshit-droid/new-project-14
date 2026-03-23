@@ -41,21 +41,28 @@ vercel deploy -y
 ## 4) Content team workflow
 
 1. Open `/composer`.
-2. Fill collection (`blog` or `knowledge`), slug, title, description, tags.
-3. Add HTML body (`<h2>`, `<p>`, `<img src="...">`, etc.).
-4. Click **Create Page**.
+2. **Login**: Use `composer@gmail.com` / `123123`. The page features custom branding and no longer prefills credentials.
+3. **Manage Live Content**: View the "Live Content" list. This is real-time in production via GitHub.
+4. **Edit/Delete**: 
+   - Click **Edit** to load a post into the editor.
+   - Click **Delete** to instantly remove a post from GitHub.
+5. **Create Page**: 
+   - Fill collection, slug, title, etc.
+   - Author content using the Quill rich text editor.
+   - Click **Save Content**.
 
 What happens:
 
-- API commits `content/<collection>/<slug>.json` into your GitHub repo.
-- Vercel auto-deploys the new commit.
-- Page becomes live at `/<collection>/<slug>`.
+- **Create/Save**: API commits `content/<collection>/<slug>.json` to GitHub.
+- **Delete**: API deletes the file from GitHub.
+- **Live Sync**: The composer list updates immediately from GitHub.
+- **Deployment**: Vercel auto-deploys the changes (takes 1-2 mins).
 
 ## 5) Verify
 
 After deployment completes, check:
 
-- `/<collection>/<slug>`
+- `/<collection>/<slug>` (for new pages)
 - `/blog` or `/knowledge` listing
 - `/sitemap.xml`
 - `/robots.txt`
@@ -64,4 +71,4 @@ After deployment completes, check:
 
 - In local development, default backend is `filesystem`.
 - On Vercel, recommended backend is `github`.
-- If API is disabled, `/composer` still loads but save action returns a clear error.
+- The "Live Content" list is powered by the GitHub API in production, ensuring real-time visibility for the content team.

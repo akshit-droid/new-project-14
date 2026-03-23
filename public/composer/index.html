@@ -17,16 +17,20 @@
   <body>
     <div id="login-overlay">
       <div class="login-card">
-        <h2>Composer Login</h2>
-        <p>Enter your credentials to access the content editor.</p>
+        <div class="login-branding">
+          <img src="/composer/branding.png" alt="Ezupp Blogs" />
+          <h1>Ezupp Blogs</h1>
+          <p class="tagline">A tool by Electrovese Solutions</p>
+        </div>
+        <p class="login-hint">Enter your credentials to access the content editor.</p>
         <form id="login-form" class="login-form">
           <label>
             Username
-            <input type="email" id="login-user" value="composer@gmail.com" required />
+            <input type="email" id="login-user" placeholder="email@example.com" required />
           </label>
           <label>
             Password
-            <input type="password" id="login-pass" value="123123" required />
+            <input type="password" id="login-pass" placeholder="••••••••" required />
           </label>
           <button type="submit">Unlock Editor</button>
         </form>

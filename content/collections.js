@@ -7,7 +7,7 @@ const siteMetadata = {
   defaultTitle: "Ezupp ERP | Distribution-Led ERP for Sales and Supply Chains",
   defaultDescription:
     "Ezupp ERP helps distribution-led businesses improve field sales productivity, partner operations, and supply chain visibility.",
-  defaultImage: "/main.png"
+  defaultImage: "/bg.jpg"
 };
 
 const readEntriesFromDir = (folderName) => {

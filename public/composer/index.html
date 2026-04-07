@@ -7,12 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/composer/styles.css" />
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJXF46NEW0"></script> <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());    gtag('config', 'G-ZJXF46NEW0'); </script>
   </head>
   <body>
     <div id="login-overlay">
@@ -53,12 +54,19 @@
       </header>
 
       <form id="composer-form" class="composer-form">
-        <div class="row two">
+        <div class="row three">
           <label>
             Collection
             <select name="collection" id="collection-select" required>
               <option value="blog">Blog</option>
               <option value="knowledge">Knowledge</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select name="status" id="status-select" required>
+              <option value="draft">Draft</option>
+              <option value="published" selected>Published</option>
             </select>
           </label>
           <label>
@@ -97,10 +105,16 @@
           <input id="tags-input" name="tags" type="text" placeholder="FMCG, Secondary Sales, Distribution" />
         </label>
 
-        <label>
-          HTML Body (Rich Editor)
-          <div id="quill-editor" style="height: 400px; background: white; border-radius: 8px;"></div>
-        </label>
+        <div style="display: grid; gap: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 600;">HTML Body</span>
+            <button type="button" id="toggle-html-btn" class="refresh-btn" style="padding: 4px 10px; font-size: 0.8rem;">Edit Raw HTML</button>
+          </div>
+          <div id="quill-wrapper">
+             <div id="quill-editor" style="height: 400px; background: white; border-radius: 8px; font-weight: 400;"></div>
+          </div>
+          <textarea id="raw-html-editor" style="height: 400px; font-family: monospace; font-size: 0.9rem; background: #0f1e37; color: #25ceae; border-radius: 8px; display: none; padding: 15px; border: 1px solid var(--line); resize: vertical; line-height: 1.5;"></textarea>
+        </div>
 
         <div class="actions">
           <button type="submit" id="save-btn">Save Content</button>
@@ -151,6 +165,29 @@
       const statusBox = document.getElementById("status-box");
       const titleInput = document.getElementById("title-input");
       const slugInp = document.getElementById("slug-input");
+      const toggleHtmlBtn = document.getElementById("toggle-html-btn");
+      const rawHtmlEditor = document.getElementById("raw-html-editor");
+      const quillWrapper = document.getElementById("quill-wrapper");
+      let isRawMode = false;
+
+      toggleHtmlBtn.addEventListener("click", () => {
+        isRawMode = !isRawMode;
+        if (isRawMode) {
+          rawHtmlEditor.value = quill.root.innerHTML;
+          quillWrapper.style.display = "none";
+          rawHtmlEditor.style.display = "block";
+          toggleHtmlBtn.textContent = "Back to Rich Editor";
+          toggleHtmlBtn.style.background = "#25ceae";
+          toggleHtmlBtn.style.color = "#0f1e37";
+        } else {
+          quill.root.innerHTML = rawHtmlEditor.value;
+          rawHtmlEditor.style.display = "none";
+          quillWrapper.style.display = "block";
+          toggleHtmlBtn.textContent = "Edit Raw HTML";
+          toggleHtmlBtn.style.background = "";
+          toggleHtmlBtn.style.color = "";
+        }
+      });
 
       const checkAuth = () => {
         if (sessionStorage.getItem("composer_auth") === "1") {
@@ -192,8 +229,11 @@
 
           contentListTbody.innerHTML = list.map(item => `
             <tr>
-              <td><span class="badge badge-${item.collection}">${item.collection}</span></td>
-              <td><strong>${item.title}</strong></td>
+              <td>
+                <span class="badge badge-${item.collection}">${item.collection}</span>
+                ${item.isDraft ? '<span class="badge" style="background:#e2e8f0; color:#475569; margin-left:4px;">Draft</span>' : ''}
+              </td>
+              <td><strong><a href="/${item.collection}/${item.slug}" target="_blank" style="color:inherit;" title="Preview Page">${item.title} ↗</a></strong></td>
               <td><code>/${item.slug}</code></td>
               <td>${item.publishedAt || 'N/A'}</td>
               <td style="display:flex; gap:8px;">
@@ -219,6 +259,7 @@
 
           // Populate form
           form.elements.collection.value = collection;
+          form.elements.status.value = entry.isDraft ? "draft" : "published";
           form.elements.slug.value = entry.slug;
           form.elements.title.value = entry.title;
           form.elements.description.value = entry.description;
@@ -230,6 +271,7 @@
           // Quill Body
           const contentHtml = entry.sections?.[0]?.html || entry.sections?.[0]?.text || "";
           quill.root.innerHTML = contentHtml;
+          rawHtmlEditor.value = contentHtml;
 
           // UI update
           saveBtn.textContent = "Update Content";
@@ -286,6 +328,15 @@
       cancelBtn.addEventListener("click", () => {
         form.reset();
         quill.root.innerHTML = "";
+        rawHtmlEditor.value = "";
+        if (isRawMode) {
+          isRawMode = false;
+          rawHtmlEditor.style.display = "none";
+          quillWrapper.style.display = "block";
+          toggleHtmlBtn.textContent = "Edit Raw HTML";
+          toggleHtmlBtn.style.background = "";
+          toggleHtmlBtn.style.color = "";
+        }
         saveBtn.textContent = "Save Content";
         editorHeadline.textContent = "Content Composer";
         cancelBtn.classList.add("hidden");
@@ -322,6 +373,7 @@
 
         const payload = {
           collection: form.elements.collection.value,
+          isDraft: form.elements.status.value === "draft",
           slug: form.elements.slug.value,
           title: form.elements.title.value,
           description: form.elements.description.value,
@@ -329,7 +381,7 @@
           publishedAt: form.elements.publishedAt.value,
           updatedAt: form.elements.updatedAt.value,
           tags: form.elements.tags.value,
-          html: quill.root.innerHTML
+          html: isRawMode ? rawHtmlEditor.value : quill.root.innerHTML
         };
 
         if (!payload.html || payload.html === '<p><br></p>') {
@@ -349,10 +401,17 @@
           if (!response.ok) throw new Error(result.error || "Failed to save content");
 
           statusBox.className = "status-box success";
-          statusBox.innerHTML =
-            `<strong>Success:</strong> Content saved live.<br>` +
-            `<strong>URL:</strong> <a href="${result.pagePath}" target="_blank">${result.pagePath}</a><br>` +
-            (result.note ? `${result.note}<br>` : "");
+          if (payload.isDraft) {
+            statusBox.innerHTML =
+              `<strong>Success:</strong> Draft saved successfully (Hidden from public).<br>` +
+              `<strong>Preview:</strong> <a href="${result.pagePath}" target="_blank">Click here to preview</a><br>` +
+              (result.note ? `${result.note}<br>` : "");
+          } else {
+            statusBox.innerHTML =
+              `<strong>Success:</strong> Content published live.<br>` +
+              `<strong>Live URL:</strong> <a href="${result.pagePath}" target="_blank">${result.pagePath}</a><br>` +
+              (result.note ? `${result.note}<br>` : "");
+          }
 
           if (saveBtn.textContent === "Save Content") {
             form.reset();

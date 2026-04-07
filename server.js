@@ -186,6 +186,7 @@ const normalizeEntryPayload = (payload) => {
 
   const publishedAt = toDateString(payload.publishedAt || new Date());
   const updatedAt = toDateString(payload.updatedAt || publishedAt);
+  const isDraft = payload.isDraft === true || payload.isDraft === "true";
   if (!publishedAt || !updatedAt) {
     return { error: "Invalid date format. Use YYYY-MM-DD." };
   }
@@ -198,6 +199,7 @@ const normalizeEntryPayload = (payload) => {
     publishedAt,
     updatedAt,
     author,
+    isDraft,
     tags,
     sections: [{ type: "html", html }]
   };
@@ -357,9 +359,17 @@ const resolveStaticCandidates = (normalizedPath) => {
 };
 
 const server = http.createServer((req, res) => {
-  const urlPath = req.url ? req.url.split("?")[0] : "/";
-  const pathname = normalizeUrlPath(urlPath);
   const baseUrl = getBaseUrl(req);
+
+  let urlPath = "/";
+  try {
+    const parsedUrl = new URL(req.url, baseUrl);
+    urlPath = parsedUrl.pathname;
+  } catch (err) {
+    urlPath = req.url ? req.url.split("?")[0] : "/";
+  }
+  
+  const pathname = normalizeUrlPath(urlPath);
 
   if (pathname === "/api/content") {
     if (composerBackend !== "filesystem" && composerBackend !== "github") {
@@ -443,7 +453,8 @@ const server = http.createServer((req, res) => {
                     slug,
                     title: fc.title || slug,
                     publishedAt: fc.publishedAt,
-                    author: fc.author
+                    author: fc.author,
+                    isDraft: fc.isDraft
                   };
                 } catch (e) {
                   return { collection: coll, slug, title: slug };
@@ -470,7 +481,8 @@ const server = http.createServer((req, res) => {
             slug: item.slug,
             title: item.title,
             publishedAt: item.publishedAt,
-            author: item.author
+            author: item.author,
+            isDraft: item.isDraft
           });
         });
       });

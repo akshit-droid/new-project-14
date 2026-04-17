@@ -63,7 +63,9 @@ window.Components.Contact = () => {
         <div className="section-title" data-animate>
           <p className="text-highlight">Contact us</p>
           <h2>Tell us about your business.</h2>
-          <p>Share your requirements and our team will reach out with a tailored demo plan.</p>
+          <p>
+            Sync orders, inventory, finance, and messaging platforms instantly. Ezupp eliminates duplicate entries and ensures your teams operate from a single source of truth.
+          </p>
         </div>
         <div className="contact-grid">
           <div className="contact-panel" data-animate="delay-1">
@@ -73,9 +75,7 @@ window.Components.Contact = () => {
               <li>Integration assessment with your existing stack</li>
               <li>Clear next steps, timelines, and ROI milestones</li>
             </ul>
-            <div className="contact-note">
-              Prefer a direct call? <strong>+91 84276 65211 | hello@ezupp.com</strong>.
-            </div>
+
           </div>
           <form className="contact-form" onSubmit={handleSubmit} data-animate="delay-2">
             <div className="form-grid">

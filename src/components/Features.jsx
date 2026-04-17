@@ -23,13 +23,18 @@ window.Components.Features = ({ features }) => {
             >
               <img
                 className="feature-image"
-                src={`/${index + 1}.png`}
+                src={feature.image || `/${(index % 8) + 1}.png`}
                 alt={`${feature.title} illustration`}
               />
               <Icon name={feature.icon} />
               <div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
+                {feature.link && (
+                  <a href={feature.link.url} className="btn secondary" style={{ marginTop: "1rem", display: "inline-block", padding: "0.5rem 1rem", fontSize: "0.9rem" }} target="_blank" rel="noreferrer">
+                    {feature.link.text}
+                  </a>
+                )}
               </div>
             </div>
           ))}

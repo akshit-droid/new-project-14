@@ -10,11 +10,10 @@ window.Components.Hero = () => (
         <span className="hero-highlight">Ezupp ERP</span>.
       </h1>
       <p className="hero-lede">
-        The complete, cloud-based ERP solution with customizable mobile app, seamless integrations, and
-        real-time insights for unparalleled control.
+        A complete, cloud-based ERP solution featuring a customizable mobile app, seamless integrations, and real-time insights for unparalleled control.
       </p>
       <div className="hero-actions">
-        <a className="btn primary" href="#demo">Get a Free Demo</a>
+        <a className="btn primary" href="#contact">Get a Free Demo</a>
       </div>
       <div className="hero-metrics">
         <div className="metric">

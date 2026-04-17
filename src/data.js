@@ -31,7 +31,7 @@ window.AppData = {
     {
       title: "Sales Fleet Management",
       description:
-        "Structure teams by hierarchy, optimize beats, and monitor real-time locations with confidence.",
+        "Structure teams by hierarchy, optimize beats, and monitor real-time locations with full visibility.",
       icon: "sales"
     },
     {
@@ -67,8 +67,28 @@ window.AppData = {
     {
       title: "Smart CRM",
       description:
-        "Build smarter pipelines with automated follow-ups, reminders, and CRM analytics.",
+        "Optimize your pipeline with automated follow-ups and data-driven insights that turn leads into predictable revenue.",
       icon: "crm"
+    },
+    {
+      title: "Healthcare Edition",
+      description: "A specialized ERP designed for doctors, clinics, and medical institutions to streamline patient operations.",
+      icon: "spark",
+      image: "/bg.jpg",
+      link: {
+        text: "Explore Healthcare Edition",
+        url: "https://bejewelled-nougat-dfcea3.netlify.app/#solution"
+      }
+    },
+    {
+      title: "WhatsApp Solution",
+      description: "Directly engage your customers and distributors seamlessly using our fully integrated WhatsApp automation tools.",
+      icon: "network",
+      image: "/8.png",
+      link: {
+        text: "Explore WhatsApp Solution",
+        url: "https://ezupp2-main-hr23vx6yy-akshits-projects-fae037db.vercel.app/"
+      }
     }
   ],
   logos: ["NovaChem", "ProField", "UnionFoods", "AmberCo", "GlidePower"],

@@ -9,8 +9,9 @@ window.Components.Solutions = ({ benefits }) => (
           <p className="text-highlight">Operational clarity, end-to-end.</p>
           <h2>Fragmented Systems? Lack of Visibility? Streamline Operations with Ezupp.</h2>
           <p>
-            Replace disconnected tools with one ERP that aligns sales, distribution, and supply chain execution
-            around real-time data. Every team works from the same live picture.
+            Eliminate fragmented systems with a unified ERP that synchronizes sales, distribution, and supply chain execution. Empower every team to operate from a single, real-time source of truth.
+            <br /><br />
+            Distributor and dealer tools help you onboard them faster and reward performance.
           </p>
           <div className="solutions-list">
             {benefits.map((benefit) => (
@@ -44,6 +45,10 @@ window.Components.Solutions = ({ benefits }) => (
                   <li>Manual updates and delayed reporting</li>
                   <li>Disconnected distributor data</li>
                   <li>Limited field visibility</li>
+                  <li>Lead Loss</li>
+                  <li>Communication gap</li>
+                  <li>Compromised data</li>
+                  <li>Customer Miscommunication</li>
                 </ul>
               </div>
               <div className="panel-col">
@@ -52,13 +57,17 @@ window.Components.Solutions = ({ benefits }) => (
                   <li>Live fleet visibility and beat adherence</li>
                   <li>Partner scoring and automated onboarding</li>
                   <li>Unified supply chain flow</li>
+                  <li>Zero lead loss</li>
+                  <li>Seamless communication</li>
+                  <li>Secure data</li>
+                  <li>Clear customer communication</li>
                 </ul>
               </div>
             </div>
             <div className="panel-kpis">
-              <div className="kpi-tile">98% visit compliance</div>
-              <div className="kpi-tile">24h inventory refresh</div>
-              <div className="kpi-tile">15% lower leakage</div>
+              <div className="kpi-tile">98% Visit compliance</div>
+              <div className="kpi-tile">24h Inventory refresh</div>
+              <div className="kpi-tile">15% Lower leakage</div>
             </div>
           </div>
         </div>

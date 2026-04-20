@@ -1,6 +1,14 @@
 window.Components = window.Components || {};
 
 window.Components.App = () => {
+  const [isDemoModalOpen, setIsDemoModalOpen] = React.useState(false);
+
+  const openDemoModal = (e) => {
+    if (e) e.preventDefault();
+    setIsDemoModalOpen(true);
+  };
+  const closeDemoModal = () => setIsDemoModalOpen(false);
+
   const {
     navLinks,
     benefits,
@@ -18,15 +26,16 @@ window.Components.App = () => {
     FAQ,
     Contact,
     DemoCTA,
-    Footer
+    Footer,
+    DemoModal
   } = window.Components;
 
   return (
     <div>
       <header>
         <div className="container">
-          <Navbar links={navLinks} />
-          <Hero />
+          <Navbar links={navLinks} onOpenDemo={openDemoModal} />
+          <Hero onOpenDemo={openDemoModal} />
         </div>
       </header>
 
@@ -36,10 +45,11 @@ window.Components.App = () => {
         <Integrations integrationNodes={integrationNodes} />
         <FAQ faqs={faqs} />
         <Contact />
-        <DemoCTA />
+        <DemoCTA onOpenDemo={openDemoModal} />
       </main>
 
       <Footer />
+      <DemoModal isOpen={isDemoModalOpen} onClose={closeDemoModal} />
     </div>
   );
 };

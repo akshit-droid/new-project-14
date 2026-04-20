@@ -1,6 +1,6 @@
 window.Components = window.Components || {};
 
-window.Components.Hero = () => (
+window.Components.Hero = ({ onOpenDemo }) => (
   <div className="hero">
     <div className="hero-content" data-animate>
       <h1 className="hero-title">
@@ -13,7 +13,7 @@ window.Components.Hero = () => (
         A complete, cloud-based ERP solution featuring a customizable mobile app, seamless integrations, and real-time insights for unparalleled control.
       </p>
       <div className="hero-actions">
-        <a className="btn primary" href="#contact">Get a Free Demo</a>
+        <a className="btn primary" href="#demo" onClick={onOpenDemo}>Get a Free Demo</a>
       </div>
       <div className="hero-metrics">
         <div className="metric">

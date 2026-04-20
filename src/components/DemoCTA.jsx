@@ -1,6 +1,6 @@
 window.Components = window.Components || {};
 
-window.Components.DemoCTA = () => (
+window.Components.DemoCTA = ({ onOpenDemo }) => (
   <section className="section-strong bg-pattern-dots" id="demo" style={{ position: "relative" }}>
     <div className="floating-orb primary size-lg pos-top-left" style={{ animationDelay: "3s" }}></div>
     <div className="container" style={{ position: "relative", zIndex: 1 }}>
@@ -13,11 +13,11 @@ window.Components.DemoCTA = () => (
             and partner experience in one platform.
           </p>
           <div className="hero-actions">
-            <a className="btn primary" href="#contact">Request a Personalized Demo</a>
+            <a className="btn primary" href="#demo" onClick={onOpenDemo}>Request a Personalized Demo</a>
             <a className="btn secondary" href="#demo">Download Our Feature Guide</a>
           </div>
           <div className="contact-list">
-            <div>Contact: <a href="tel:+918427665211">+91 84276 65211</a> | <a href="mailto:hello@ezupp.com">hello@ezupp.com</a></div>
+            <div>Contact: <a href="tel:+918427665211">+91 84276 65211</a> | <a href="mailto:aadhar@electrovese.com">aadhar@electrovese.com</a></div>
             <div>Office Hours: Mon-Fri, 9:00 AM - 6:00 PM</div>
           </div>
         </div>

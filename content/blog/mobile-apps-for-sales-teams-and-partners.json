@@ -1,0 +1,19 @@
+{
+  "slug": "mobile-apps-for-sales-teams-and-partners",
+  "title": "Mobile apps for sales teams and partners",
+  "description": "Mobile apps for sales teams and partners",
+  "excerpt": "Mobile apps for sales teams and partners",
+  "publishedAt": "2026-04-20",
+  "updatedAt": "2026-04-20",
+  "author": "Ezupp Editorial Team",
+  "isDraft": false,
+  "tags": [
+    "Mobile apps for sales teams and partners"
+  ],
+  "sections": [
+    {
+      "type": "html",
+      "html": "<article>\n\n  <h1>Run Your Sales Without SAP Dependency</h1>\n\n  <img src=\"https://images.unsplash.com/photo-1551288049-bebda4e38f71\" \n       alt=\"Ezupp ERP Dashboard\" \n       style=\"width:100%; margin:16px 0;\" />\n\n  <p>\n    Managing sales operations through traditional ERP systems like SAP often leads to delays, dependency, and operational complexity.\n    Ezupp ERP is built to simplify this by bringing the entire sales lifecycle into one unified platform.\n  </p>\n\n  <h2>The Problem</h2>\n  <p>\n    Businesses today rely heavily on SAP for managing customers, products, pricing, and orders. This creates:\n  </p>\n  <ul>\n    <li>Dependency on sync cycles</li>\n    <li>Duplicate data across systems</li>\n    <li>Slow order processing</li>\n    <li>Limited flexibility for business teams</li>\n  </ul>\n\n  <h2>The Ezupp Approach</h2>\n  <p>\n    Ezupp ERP removes this dependency by handling everything internally—from customer management to order execution.\n  </p>\n\n  <h2>Order Lifecycle</h2>\n  <p>\n    The entire workflow is managed in one streamlined flow:\n  </p>\n  <p>\n    <strong>\n      Punch → Quotation → Approval → Finalized → Confirmed → In Progress → Dispatched\n    </strong>\n  </p>\n\n  <h2>Beyond Sales</h2>\n  <p>\n    Ezupp also includes:\n  </p>\n  <ul>\n    <li>Mobile apps for sales teams and partners</li>\n    <li>Admin dashboard for full control</li>\n    <li>WhatsApp integration</li>\n    <li>Digital warranty activation</li>\n    <li>Loyalty and rewards system</li>\n  </ul>\n\n  <h2>Warranty & Tracking</h2>\n  <p>\n    Track product movement across Primary → Secondary → Tertiary sales with QR-based warranty activation, ensuring transparency and reducing fraud.\n  </p>\n\n  <h2>Why Ezupp</h2>\n  <ul>\n    <li>Faster operations</li>\n    <li>Single source of truth</li>\n    <li>Real-time visibility</li>\n    <li>Flexible workflows</li>\n  </ul>\n\n  <p>\n    Ezupp ERP enables businesses to run faster, smarter, and with complete control over their sales ecosystem.\n  </p>\n\n</article>"
+    }
+  ]
+}

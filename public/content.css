@@ -47,6 +47,13 @@
   margin-bottom: 34px;
 }
 
+/* Override global header styles from styles.css */
+header.content-hero,
+header.article-header {
+  background: none;
+  padding-bottom: 0;
+}
+
 .content-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -142,6 +149,9 @@
   box-shadow: 0 16px 40px rgba(15, 29, 47, 0.06);
   padding: 24px;
   min-width: 0;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .article-header h1 {
@@ -222,12 +232,10 @@
   color: var(--primary-dark);
 }
 
-/* ── 3-column article layout ──────────────────────── */
+/* ── Single-column article layout ──────────────────────── */
 .article-layout {
-  display: grid;
-  grid-template-columns: 220px 1fr 220px;
-  gap: 24px;
-  align-items: start;
+  display: flex;
+  justify-content: center;
 }
 
 .article-sidebar {
@@ -397,26 +405,7 @@
 }
 
 /* ── Responsive ────────────────────────────────────── */
-@media (max-width: 1100px) {
-  .article-layout {
-    grid-template-columns: 1fr;
-  }
 
-  .article-sidebar--left {
-    display: none;
-  }
-
-  .article-sidebar--right {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-
-  .article-sidebar--right .sidebar-card {
-    flex: 1 1 240px;
-  }
-}
 
 @media (max-width: 900px) {
   .content-grid {

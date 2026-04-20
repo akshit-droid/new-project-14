@@ -1,6 +1,6 @@
 window.Components = window.Components || {};
 
-window.Components.Navbar = ({ links }) => {
+window.Components.Navbar = ({ links, onOpenDemo }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -18,7 +18,7 @@ window.Components.Navbar = ({ links }) => {
         ))}
       </div>
       <div className="nav-cta">
-        <a className="btn primary small" href="#contact" onClick={closeMenu}>Book Demo</a>
+        <a className="btn primary small" href="#contact" onClick={(e) => { closeMenu(); onOpenDemo(e); }}>Book Demo</a>
         <button
           className="nav-toggle"
           type="button"

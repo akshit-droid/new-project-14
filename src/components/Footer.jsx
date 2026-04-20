@@ -14,7 +14,7 @@ window.Components.Footer = () => (
         </div>
         <div>
           <div className="footer-title">Contact</div>
-          <div><a href="tel:+918427665211">+91 84276 65211</a> | <a href="mailto:hello@ezupp.com">hello@ezupp.com</a></div>
+          <div><a href="tel:+918427665211">+91 84276 65211</a> | <a href="mailto:aadhar@electrovese.com">aadhar@electrovese.com</a></div>
           <div>Mohai, Punjab, India</div>
           <div>Mon-Fri, 9:00 AM - 6:00 PM IST</div>
         </div>
